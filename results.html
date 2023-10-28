@@ -1,88 +1,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Quiz Results</title>
+    <title>Personality Result</title>
     <style>
-        /* Your CSS styles here */
         body {
-            background-color: cream;
+            font-family: Arial, sans-serif;
             text-align: center;
+            background-color: #f8f5e5;
         }
         table {
-            margin: 0 auto;
+            margin: 20px auto;
             border-collapse: collapse;
+            width: 80%;
         }
         table, th, td {
-            border: 1px solid black;
+            border: 1px solid #333;
         }
         th, td {
             padding: 10px;
+            text-align: left;
         }
         th {
-            background-color: lightblue;
+            background-color: #3498db;
+            color: #fff;
         }
         tr:nth-child(even) {
-            background-color: lightnavyblue;
+            background-color: #f2f2f2;
         }
     </style>
 </head>
 <body>
-    <h1>Personality Scores</h1>
+    <h2>Your Personality Result</h2>
     <table>
         <tr>
             <th>Personality</th>
             <th>Score</th>
-        </tr>
-        <tr>
-            <td>Personality 1</td>
-            <td id="p0-score"></td>
-        </tr>
-        <tr>
-            <td>Personality 2</td>
-            <td id="p1-score"></td>
-        </tr>
-        <tr>
-            <td>Personality 3</td>
-            <td id="p2-score"></td>
-        </tr>
-        <tr>
-            <td>Personality 4</td>
-            <td id="p3-score"></td>
-        </tr>
-        <tr>
-            <td>Personality 5</td>
-            <td id="p4-score"></td>
-        </tr>
-        <tr>
-            <td>Personality 6</td>
-            <td id="p5-score"></td>
-        </tr>
-        <tr>
-            <td>Personality 7</td>
-            <td id="p6-score"></td>
-        </tr>
-        <tr>
-            <td>Personality 8</td>
-            <td id="p7-score"></td>
-        </tr>
-        <tr>
-            <td>Personality 9</td>
-            <td id="p8-score"></td>
-        </tr>
+        </tr> <!-- Fill in the table rows with personality scores using JavaScript -->
     </table>
 
+    <h2>Your Main Personality</h2>
+    <p id="main-personality"></p>
     <script>
-        // Retrieve scores from query parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const scores = [];
-        for (let i = 0; i < 9; i++) {
-            scores.push(parseFloat(urlParams.get(`p${i}`)));
-        }
+    // Replace this sample data with your actual personality scores
+    const personalityResults = [
+        { personality: "Personality 1", score: personality1Score },
+        { personality: "Personality 2", score: personality2Score },
+        { personality: "Personality 3", score: personality3Score },
+        { personality: "Personality 4", score: personality4Score },
+        { personality: "Personality 5", score: personality5Score },
+        { personality: "Personality 6", score: personality6Score },
+        { personality: "Personality 7", score: personality7Score },
+        { personality: "Personality 8", score: personality8Score },
+        { personality: "Personality 9", score: personality9Score },
+    ];
 
-        // Display scores in the table
-        for (let i = 0; i < 9; i++) {
-            document.getElementById(`p${i}-score`).textContent = scores[i].toFixed(2);
-        }
-    </script>
+    // Sort the personality results by score in descending order
+    personalityResults.sort((a, b) => b.score - a.score);
+
+    // Get a reference to the table
+    const table = document.querySelector("table");
+
+    // Loop through the sorted results and populate the table
+    personalityResults.forEach((result) => {
+        const row = table.insertRow(-1);
+        const cell1 = row.insertCell(0);
+        const cell2 = row.insertCell(1);
+        cell1.innerHTML = result.personality;
+        cell2.innerHTML = result.score;
+    });
+</script>
+
+<!-- ... (remaining HTML code) ... -->
 </body>
 </html>
