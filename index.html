@@ -368,10 +368,10 @@
         const nextButton = document.getElementById("next-button");
         const questionText = document.getElementById("question-text");
         const optionsContainer = document.getElementById("options-container");
-
+    
         let currentQuestionIndex = 0;
-        const scores = Array(9).fill(0); // Initialize scores as an array of 9 zeros
-
+        const accumulatedScores = [0, 0, 0, 0, 0, 0, 0, 0, 0]; // Initialize accumulatedScores as an array of 9 zeros
+    
         function showNextQuestion() {
             if (currentQuestionIndex < quizData.length) {
                 const questionData = quizData[currentQuestionIndex];
@@ -380,40 +380,29 @@
                 displayResult();
             }
         }
-
-        function updateScores(score) {
-            for (let i = 0; i < scores.length; i++) {
-                scores[i] += score * quizData[currentQuestionIndex].options[i];
+    
+        function updateAccumulatedScores(score) {
+            for (let i = 0; i < accumulatedScores.length; i++) {
+                accumulatedScores[i] += score * quizData[currentQuestionIndex].options[i];
             }
         }
-
+    
         function displayResult() {
-            // Calculate the scores for each personality
-            const scores = [0, 0, 0, 0, 0, 0, 0, 0, 0]; // Initialize scores array
-
-            for (let i = 0; i < quizData.length; i++) {
-                const selectedOption = document.querySelector(`input[name="q"]:checked`);
-                const score = parseFloat(selectedOption.value);
-                for (let j = 0; j < scores.length; j++) {
-                    scores[j] += quizData[i].options[j] * score;
-                }
-            }
-
-            // Redirect to the results page and pass the scores as query parameters
-            const url = `results.html?${scores.map((score, index) => `p${index}=${score}`).join('&')}`;
+            // Redirect to the results page and pass the accumulatedScores as query parameters
+            const url = `results.html?${accumulatedScores.map((score, index) => `p${index}=${score}`).join('&')}`;
             window.location.href = url;
         }
-
+    
         nextButton.addEventListener("click", () => {
             const selectedOption = document.querySelector('input[name="q"]:checked');
             if (selectedOption) {
                 const score = parseFloat(selectedOption.value);
-                updateScores(score);
+                updateAccumulatedScores(score);
             }
             currentQuestionIndex++;
             showNextQuestion();
         });
-
+    
         showNextQuestion();
     </script>
 </body>
